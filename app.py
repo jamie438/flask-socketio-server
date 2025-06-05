@@ -1,12 +1,12 @@
-# 🧠 monkey_patch muss GANZ OBEN stehen
+# ⬅️ monkey_patch MUSS ganz oben stehen
 import eventlet
 eventlet.monkey_patch()
 
 import os
-import time
-import numpy as np
 from flask import Flask
 from flask_socketio import SocketIO, emit
+import numpy as np
+import time
 from aubio import pitch
 from scipy.signal import butter, lfilter
 import logging
@@ -17,7 +17,8 @@ logging.getLogger('engineio').setLevel(logging.WARNING)
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet")
 
-def bandpass_filter(data, sr, low=100.0, high=1000.0):
+# 🎚 Bandpass-Filter für bessere Klarinettenanalyse
+def bandpass_filter(data, sr, low=100.0, high=3000.0):
     nyq = 0.5 * sr
     low /= nyq
     high /= nyq
@@ -86,6 +87,6 @@ def handle_audio_chunk(data):
         print("❌ Fehler bei der Analyse:", str(e), flush=True)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 8000))
     print(f"🚀 Starte Flask-Server auf Port {port}", flush=True)
     socketio.run(app, host="0.0.0.0", port=port)
