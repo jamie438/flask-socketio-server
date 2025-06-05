@@ -1,3 +1,7 @@
+import eventlet
+import eventlet.wsgi
+eventlet.monkey_patch()
+
 from flask import Flask
 from flask_socketio import SocketIO, emit
 import numpy as np
@@ -88,9 +92,7 @@ def handle_audio_chunk(data):
         print("❌ Fehler bei der Analyse:", str(e), flush=True)
 
 if __name__ == "__main__":
-    import eventlet
-    import eventlet.wsgi
-    eventlet.monkey_patch()
+    
     port = int(os.environ.get("PORT", 5000))
     print("🚀 Starte Flask-Server auf Port 5000", flush=True)
     socketio.run(app, host="0.0.0.0", port=port)
