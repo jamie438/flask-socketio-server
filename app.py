@@ -88,5 +88,8 @@ def handle_audio_chunk(data):
         print("❌ Fehler bei der Analyse:", str(e), flush=True)
 
 if __name__ == "__main__":
+    import eventlet
+    import eventlet.wsgi
+    eventlet.monkey_patch()
     print("🚀 Starte Flask-Server auf Port 8000", flush=True)
-    socketio.run(app, host="0.0.0.0", port=8000)
+    socketio.run(app, host="0.0.0.0", port=port)
