@@ -91,5 +91,5 @@ if __name__ == "__main__":
     import eventlet
     import eventlet.wsgi
     eventlet.monkey_patch()
-    print("🚀 Starte Flask-Server auf Port 8000", flush=True)
+    print("🚀 Starte Flask-Server auf Port 5000", flush=True)
     socketio.run(app, host="0.0.0.0", port=port)
